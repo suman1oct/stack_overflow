@@ -1,0 +1,21 @@
+{% load staticfiles %}
+{% load static %}
+{{ form.media }}
+
+<!-- {{user_list}} -->
+
+{% for user in user_list %}
+
+<img src={{MEDIA_URL}}{{user.image}} height=150px width=100px alt="No Profile Image"><br>
+<h3>USER ID : {{ user.pk }}<h3>
+<h3>USERNAME:{{user.username}}</h3>
+<h3>NAME : {{ request.user.get_full_name}}<h3>
+<h3>EMAIL : {{ user.email}}<h3>
+<h3>DOB : {{ user.date_of_birth}}</h3>
+<h3>ADDRESS : {{ user.address}}</h3>
+
+{%  endfor %}
+
+<a href="{% url 'authentication:edit_profile' request.user.pk %}">
+    <button type="button">Edit</button>
+</a>

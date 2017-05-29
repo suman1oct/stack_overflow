@@ -1,0 +1,11 @@
+<!-- {{question_list}} -->
+
+
+<h1>Self Questions</h1>
+
+{% for ques in question_list %}
+<br><br>
+
+<a href="{% url 'forum:question_detail' ques.pk %}">{{ques.ques_title}}</a>
+
+{%  endfor %}

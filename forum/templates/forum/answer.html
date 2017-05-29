@@ -1,0 +1,11 @@
+
+{% load staticfiles %}
+{% load static %}
+{{ form.media }}
+
+<h2>Answer</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">submit</button>
+  </form>
