@@ -1,7 +1,18 @@
 <!-- {{object}} -->
 
 <div>
-<strong>Question</strong><br><br>
-{{object.ques_description}}
-
+	<strong>Question</strong><br><br>
+	{{object.ques_description}}
 </div>
+
+<br><br>
+
+
+<a href="{% url 'forum:edit_question' object.ques_id %}">
+    <button type="button">Edit</button>
+</a>
+
+<br><br>
+
+<a href="{% url 'forum:show_all_answers' object.ques_id %}">Answers</a><br><br>
+<a href="{% url 'forum:answer' object.ques_id %}">Your Answer</a><br><br>

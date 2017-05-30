@@ -148,7 +148,6 @@ CKEDITOR_RESTRICT_BY_USER=True
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME=False
 CKEDITOR_JQUERY_URL='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 
-
 CKEDITOR_CONFIGS = {
        'default': {
            'toolbar': 'Full',

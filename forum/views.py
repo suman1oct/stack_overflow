@@ -1,11 +1,13 @@
 # python imports
 
 # django imports
-from django.shortcuts import render, redirect
-from django.views import View, generic
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from django.http import HttpResponse, HttpResponseForbidden,  HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.views import View, generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # local imports
@@ -13,7 +15,6 @@ from .forms import EditQuestionForm
 from .models import Question, Answer
 
 
-from django.http import HttpResponse, HttpResponseForbidden,  HttpResponseRedirect
 
 # inner app imports
 
@@ -135,6 +136,16 @@ class EditQuestionView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 		return super(EditQuestionView, self).get(*args, **kwargs)
 
+	def form_valid(self, form):
+		"""
+		Edit the update date of question
+		"""
+		instance = form.save(commit=False)
+		instance.updated_date = timezone.now()
+		super(EditQuestionView, self).form_valid(form)
+		return redirect(self.success_url)
+
+
 
 class AnswerView(LoginRequiredMixin, generic.CreateView):
 	"""
@@ -155,6 +166,7 @@ class AnswerView(LoginRequiredMixin, generic.CreateView):
 		ans.question=qu
 		ans.save()
 		return redirect('forum:show_all_question')
+
 
 
 class AnswerDetailView(generic.DetailView):
@@ -190,4 +202,28 @@ class EditAnswerView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 
 		return super(EditAnswerView, self).get(*args, **kwargs)
 
+	def form_valid(self, form):
+		"""
+		Edit the Updated date of answer
+		"""
+		instance = form.save(commit=False)
+		instance.updated_date = timezone.now()
+		super(EditAnswerView, self).form_valid(form)
+		return redirect(self.success_url)
 
+
+class ShowAllAnswers(LoginRequiredMixin, generic.ListView):
+	"""
+	display all answers for a question
+	"""
+
+	template_name = 'forum/show_all_answers.html'
+	model = Answer
+
+	def get_queryset(self):
+		"""
+		send object of all answer of a particular question
+		"""
+		ques=Question.objects.get(pk = self.kwargs.get('pk'))
+		ans=ques.answer_set.all()
+		return ans
