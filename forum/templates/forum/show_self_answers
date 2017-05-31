@@ -1,0 +1,6 @@
+ <!-- {{answer_list}} -->
+
+{% for ans in answers %}
+	Question : {{ans.question.ques_description}}<br><br>
+	Answer : {{ans.ans_description}}<br><br>
+{% endfor %}

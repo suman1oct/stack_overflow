@@ -11,10 +11,8 @@ from django.views import View, generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # local imports
-from .forms import EditQuestionForm
+#from .forms import EditQuestionForm
 from .models import Question, Answer
-
-
 
 # inner app imports
 
@@ -34,7 +32,7 @@ class HomepageView(generic.TemplateView):
 	Homepage View
 	"""
 
-	template_name = 'forum/homepage.html'
+	template_name = 'forum/Homepage.html'
 
 	def get(self, *args, **kwargs):
 		"""
@@ -81,13 +79,32 @@ class ShowOwnAllQuestion(LoginRequiredMixin, generic.ListView):
 		return Question.objects.filter(user=self.request.user)
 
 
+class QuestionDetailView(generic.CreateView):
+	"""
+	Question Detail view this will display the detail of question their ans and form for your answer
+	"""
+	template_name = 'forum/ques_detail.html'
+	model = Answer
+	fields = ['ans_description',]
 
-class QuestionDetailView(generic.DetailView):
-	"""
-	Question Detail view this will display the detail of question
-	"""
-	template_name = 'forum/question_detail.html'
-	model = Question
+	def form_valid(self,form):
+		ans_description=form.cleaned_data.get('ans_description')
+		
+		ans=Answer(ans_description = ans_description)
+		form.save(commit=False)
+		ans.user=self.request.user
+		qu=Question.objects.get(pk=self.kwargs.get('pk'))
+		ans.question=qu
+		ans.save()
+		return redirect('forum:question_detail', pk=qu.pk)
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(QuestionDetailView, self).get_context_data(*args, **kwargs)
+		context['answers'] = Answer.objects.filter(question__pk = self.kwargs['pk'])
+		context['question'] = Question.objects.get(pk = self.kwargs['pk'])
+		return context
+
+
 
 
 class ShowAllQuestion(LoginRequiredMixin, generic.ListView):
@@ -97,6 +114,13 @@ class ShowAllQuestion(LoginRequiredMixin, generic.ListView):
 
 	template_name = 'forum/show_all_question.html'
 	model = Question
+
+	def get_queryset(self):
+		"""
+		send all questions
+		"""
+		ques = Question.objects.all().order_by('updated_date')
+		return ques
 
 
 class QuestionDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -165,7 +189,14 @@ class AnswerView(LoginRequiredMixin, generic.CreateView):
 		qu=Question.objects.get(pk=self.kwargs.get('pk'))
 		ans.question=qu
 		ans.save()
-		return redirect('forum:show_all_question')
+		return redirect('forum:question_detail', pk=qu.pk)
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(AnswerView, self).get_context_data(*args, **kwargs)
+		context['answers'] = Answer.objects.filter(question__pk = self.kwargs['pk'])
+		context['question'] = Question.objects.filter(pk = self.kwargs['pk'])
+		return context
+		return redirect('forum:answer', pk=self.kwargs['pk'])
 
 
 
@@ -209,7 +240,9 @@ class EditAnswerView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 		instance = form.save(commit=False)
 		instance.updated_date = timezone.now()
 		super(EditAnswerView, self).form_valid(form)
-		return redirect(self.success_url)
+		#return redirect(self.success_url)
+		q=Question.objects.get(pk=instance.question.pk)
+		return redirect('forum:question_detail', pk=q.pk)
 
 
 class ShowAllAnswers(LoginRequiredMixin, generic.ListView):
@@ -227,3 +260,18 @@ class ShowAllAnswers(LoginRequiredMixin, generic.ListView):
 		ques=Question.objects.get(pk = self.kwargs.get('pk'))
 		ans=ques.answer_set.all()
 		return ans
+
+
+class ShowSelfAnswers(LoginRequiredMixin, generic.ListView):
+	"""
+	display own answer with question
+	"""
+	model = Answer
+	template_name= 'forum/show_self_answers.html'
+ 
+	def get_queryset(self):
+		"""
+		send all self answer with question
+		"""
+		answers = Answer.objects.filter(user = self.request.user)
+		return answers

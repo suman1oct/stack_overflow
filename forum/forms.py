@@ -21,16 +21,16 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # 		fields = ['title', 'text']
 		
 
-class EditQuestionForm(forms.ModelForm):	
-	"""
-	Asking Question form
-	"""
+# class EditQuestionForm(forms.ModelForm):	
+# 	"""
+# 	Asking Question form
+# 	"""
 	
-	ques_description = RichTextUploadingField()
+# 	ques_description = RichTextUploadingField()
 
-	class Meta:
-		model = Question
-		fields = ['ques_title',]
+# 	class Meta:
+# 		model = Question
+# 		fields = ['ques_title',]
 			
 
 

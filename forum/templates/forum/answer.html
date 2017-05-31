@@ -3,8 +3,27 @@
 {% load static %}
 {{ form.media }}
 
-<h2>Answer</h2>
-  <form method="post">
+<strong>Question</strong><br>
+
+{% for ques in question %}
+	{{ ques.ques_description }}
+{% endfor %}
+<br><br>
+
+<strong>Answers</strong><br>
+{% for ans in answers %}
+	{{ans.ans_description}}
+		<br><br>
+		<!-- <a href="{% url 'forum:edit_answer' ans.pk %}">
+    		<button type="button">Edit</button>
+		</a> -->
+		<hr>
+
+{% endfor %}
+
+
+<h2> Your Answer</h2>
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">submit</button>

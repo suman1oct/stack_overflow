@@ -5,7 +5,7 @@ from django.conf.urls import url
 
 # locals import
 from . import views
-from .views import QuestionDetailView, ShowAllQuestion, QuestionDeleteView, EditQuestionView, AnswerView, AnswerDetailView, EditAnswerView, ShowAllAnswers
+from .views import QuestionDetailView, ShowSelfAnswers,ShowAllQuestion, QuestionDeleteView, EditQuestionView, AnswerView, AnswerDetailView, EditAnswerView, ShowAllAnswers
 
 
 app_name = 'forum'
@@ -19,8 +19,9 @@ urlpatterns = [
 	url(r'^show-all-question/', ShowAllQuestion.as_view(), name='show_all_question'),
 	url(r'^delete-question/(?P<pk>\d+)/', QuestionDeleteView.as_view(), name='question_delete'),
 	url(r'^edit-question/(?P<pk>\d+)/', EditQuestionView.as_view(), name='edit_question'),
-	url(r'^answer/(?P<pk>\d+)/', AnswerView.as_view(), name='answer'),
-	url(r'^answer-detail/(?P<pk>\d+)/', AnswerDetailView.as_view(), name='answer_detail'),
+	#url(r'^answer/(?P<pk>\d+)/', AnswerView.as_view(), name='answer'),
+	#url(r'^answer-detail/(?P<pk>\d+)/', AnswerDetailView.as_view(), name='answer_detail'),
 	url(r'^edit-answer/(?P<pk>\d+)/', EditAnswerView.as_view(), name='edit_answer'),
 	url(r'^show-all-answers/(?P<pk>\d+)/', ShowAllAnswers.as_view(), name='show_all_answers'),
+	url(r'^show-self-answer/', ShowSelfAnswers.as_view(), name='show_self_answers'),
 ]	

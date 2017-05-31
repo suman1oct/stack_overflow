@@ -3,10 +3,15 @@
 
 <h1> All Questions</h1>
 
-{% for ques in question_list %}
-<br><br>
-Question title : 
-<a href="{% url 'forum:question_detail' ques.pk %}">{{ques.ques_title}}</a><br>
-
+{% for ques in question_list %}<br><br>
+	Question title : 
+	<a href="{% url 'forum:question_detail' ques.pk %}">{{ques.ques_title}}</a><br>
+	(creaded:{{ques.created_date}})(Updated:{{ques.updated_date}})
+	{% if ques.user == request.user %}
+        <script src="https://use.fontawesome.com/4e8af885fd.js"></script>
+            <a href="{% url 'forum:edit_question' ques.pk %}">
+    		    <i class="fa fa-pencil" aria-hidden="true"></i>
+		    </a> 
+	{% endif %}<hr>
 
 {%  endfor %}

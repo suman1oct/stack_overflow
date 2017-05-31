@@ -1,0 +1,12 @@
+ <!-- {{answer_list}} -->
+
+{% for ans in answer_list %}
+	Question : {{ans.question.ques_description}}<br><br>
+	Answer : {{ans.ans_description}}<br><br>
+	<script src="https://use.fontawesome.com/4e8af885fd.js"></script>
+	<a href="{% url 'forum:edit_answer' ans.pk %}">
+    	<i class="fa fa-pencil" aria-hidden="true"></i>
+	</a>
+
+	<hr>
+{% endfor %}

@@ -6,6 +6,10 @@
 {% for ques in question_list %}
 <br><br>
 
-<a href="{% url 'forum:question_detail' ques.pk %}">{{ques.ques_title}}</a>
+<a href="{% url 'forum:question_detail' ques.pk %}">{{ques.ques_title}}</a><br><br>
+<script src="https://use.fontawesome.com/4e8af885fd.js"></script>
+<a href="{% url 'forum:edit_question' ques.pk %}">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+</a><hr>
 
 {%  endfor %}

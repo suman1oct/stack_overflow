@@ -1,0 +1,36 @@
+{% load staticfiles %}
+{% load static %}
+{{ form.media }}
+
+<strong>Question</strong><br>
+
+{{question}}<br>
+(created:-{{question.created_date}})
+(updated:-{{question.updated_date}})
+
+<br><br>
+
+<strong>Answers</strong><br>
+{% for ans in answers %}
+	{{ans.ans_description}}
+    <br><br>
+    (created:-{{ans.created_date}})
+    (updated:-{{ans.updated_date}})
+		<br><br>
+        {% if ans.user == request.user %}
+          <script src="https://use.fontawesome.com/4e8af885fd.js"></script>
+              <a href="{% url 'forum:edit_answer' ans.pk %}">
+    		          <i class="fa fa-pencil" aria-hidden="true"></i>
+		          </a> 
+        {% endif %}
+		<hr>
+
+{% endfor %}
+
+
+<h2> Your Answer</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">submit</button>
+  </form>

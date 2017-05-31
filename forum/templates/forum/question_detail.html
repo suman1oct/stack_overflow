@@ -1,11 +1,13 @@
 <!-- {{object}} -->
 
+{% load staticfiles %}
+{% load static %}
+{{ form.media }}
+
 <div>
 	<strong>Question</strong><br><br>
 	{{object.ques_description}}
 </div>
-
-<br><br>
 
 
 <a href="{% url 'forum:edit_question' object.ques_id %}">
@@ -13,6 +15,22 @@
 </a>
 
 <br><br>
+<strong>Answers:</strong><br><br>
 
-<a href="{% url 'forum:show_all_answers' object.ques_id %}">Answers</a><br><br>
+{% for ans in answers %}
+	{{ans.ans_description}}
+		<br><br>
+		<a href="{% url 'forum:edit_answer' ans.pk %}">
+    		<button type="button">Edit</button>
+		</a><hr>
+
+{% endfor %}
+
+<br><br>
 <a href="{% url 'forum:answer' object.ques_id %}">Your Answer</a><br><br>
+
+
+
+<!-- {{answers}} -->
+
+
