@@ -27,7 +27,7 @@ class SignUpView(generic.CreateView):
 	form_class = SignUpForm
 	#fields=['first_name','last_name','email','address']
 	success_url=reverse_lazy('forum:dashboard')
-	template_name = 'authentication/sign_up.html'
+	template_name = 'authentication/SIGN_UP.html'
 	success_message = 'User Registered Successfully'
 
 	def get(self, *args, **kwargs):
@@ -66,7 +66,7 @@ class SignInView(generic.FormView):
 	user sign-In view
 	"""
 
-	template_name='authentication/sign_in.html'
+	template_name='authentication/SIGN_IN.html'
 	form_class=SignInForm
 	success_url=reverse_lazy('forum:dashboard')
 
@@ -111,7 +111,7 @@ class EditProfileView(SuccessMessageMixin,ValidUserProfileMixin, LoginRequiredMi
 	model=User
 	form_class = EditUserProfileForm
 	success_url=reverse_lazy('authentication:show_profile')
-	template_name = 'authentication/edit_profile.html'
+	template_name = 'authentication/EDIT_PROFILE.html'
 	success_message = 'Profile Edited Successfully Successfully'
 
 	# def get(self, *args, **kwargs):
@@ -127,7 +127,8 @@ class EditProfileView(SuccessMessageMixin,ValidUserProfileMixin, LoginRequiredMi
 
 
 class UserProfileView(LoginRequiredMixin, generic.ListView):
-	template_name ='authentication/show_profile.html'
+	#template_name ='authentication/show_profile.html'
+	template_name ='authentication/PROFILE.html'
 
 	def get_queryset(self):
 		"""
@@ -141,7 +142,7 @@ class ChangePasswordView(LoginRequiredMixin, generic.FormView):
 	Change password view
 	"""
 	form_class = ChangePasswordForm
-	template_name='authentication/change_password.html'
+	template_name='authentication/CHANGE_PASSWORD.html'
 	success_url = reverse_lazy('forum:dashboard')
 	success_message = 'password changed successfully'
 	
@@ -174,7 +175,7 @@ class DeleteUserAccountView(LoginRequiredMixin, ValidUserProfileMixin, SuccessMe
 	"""
 
 	model = User
-	template_name = 'authentication/delete_account.html'
+	template_name = 'authentication/DELETE_ACCOUNT.html'
 	success_url = reverse_lazy('authentication:sign_up')
 	success_message = 'User Account Deleted Successfully'
 
@@ -191,6 +192,6 @@ class SettingView(LoginRequiredMixin, generic.TemplateView):
 	Setting View
 	"""
 
-	template_name = 'authentication/setting.html'
+	template_name = 'authentication/SETTING.html'
 
 	

@@ -14,7 +14,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class Question(models.Model):
 	ques_id = models.AutoField(primary_key=True)
 	user = models.ForeignKey(User)
-	ques_title = models.CharField(verbose_name='Question Title',max_length=500)
+	ques_title = models.CharField(verbose_name='Question Title',max_length=5000)
 	ques_description = RichTextUploadingField()
 	created_date = models.DateTimeField(default=timezone.now)
 	updated_date = models.DateTimeField(default=timezone.now)

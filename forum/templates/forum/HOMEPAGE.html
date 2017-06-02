@@ -1,0 +1,71 @@
+<!-- {% load staticfiles %}
+{% load static %}
+{{ form.media }} -->
+
+<html>
+	<head>
+		<title>Homepage</title>
+
+		<style type="text/css">
+			div
+			{
+				height: 120px;
+				/*background-color:black;*/
+			}
+
+			h1
+			{
+				color:brown;
+				font-size: 100px;
+				font-family: "Times New Roman";
+			}
+
+		body {
+    			background-repeat: no-repeat;
+    			background-size:100% 100%;
+			}
+
+			button.a
+			{
+    				background-color:orange;
+    				border: none;
+    				/*color: white;*/
+    				padding: 15px 32px;
+    				text-align: center;
+    				text-decoration: none;
+    				display: inline-block;
+    				font-size: 16px;
+    				margin: 4px 2px;
+    				margin-top:140px;
+
+    				/*cursor: pointer;*/
+			}
+			button.b
+			{
+    				background-color:orange;
+    				border: none;
+    				/*color: white;*/
+    				padding: 15px 32px;
+    				text-align: center;
+    				text-decoration: none;
+    				display: inline-block;
+    				font-size: 16px;
+    				margin: 4px 2px;
+    				margin-top:8px;
+
+    				/*cursor: pointer;*/
+			}
+
+		</style>
+	</head>
+
+	<body background="forum/templates/images/1.jpg">
+		<div> <h1> <center> Welcome <br>To Forum </center></h1> </div>
+		<a href="{% url 'authentication:sign_up'%}">
+			<center><button type="button" class="a">Sign-Up</button></center></a>
+		<a href="{% url 'authentication:sign_in'%}">
+			<center><button type="button" class="b">Sign-In</button></center></a><br><br></a>
+	</body>
+</html>
+
+

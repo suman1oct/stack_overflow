@@ -1,0 +1,38 @@
+{% load staticfiles %}
+{% load static %}
+{{ form.media }}
+
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <body> 
+    
+      
+          
+      <div class="w3-bar w3-black">
+          <div class="w3-bar-item" style="width:100%">
+            <h1 style="text-align: center;" >CREATE YOUR ACCOUNT</h1>
+          </div>
+      </div>
+
+      <div style="margin-top: 0px; margin-left: 200px; margin-bottom:0PX;margin-right: 200px; height: 550px; color:#333333; background-color: #efefef;z-index: 0">
+              
+        <form method="post" enctype="multipart/form-data"><BR><BR>
+          {% csrf_token %}<CENTER>
+          {{ form.as_p }}
+          <BR>
+          <button type="submit" style="background-color: white; font-size: 16px; padding: 7px 32px;">Register</button></CENTER>
+        </form>
+      </div>
+PRO
+    </body>
+</html>
+
+
+

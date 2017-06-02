@@ -23,7 +23,7 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
 	Homepage View
 	"""
 
-	template_name = 'forum/dashboard.html'
+	template_name = 'forum/DASHBOARD.html'
 
 
 class HomepageView(generic.TemplateView):
@@ -32,7 +32,7 @@ class HomepageView(generic.TemplateView):
 	Homepage View
 	"""
 
-	template_name = 'forum/Homepage.html'
+	template_name = 'forum/index.html'
 
 	def get(self, *args, **kwargs):
 		"""
@@ -49,7 +49,7 @@ class QuestionView(LoginRequiredMixin, generic.CreateView):
 	Create  question View
 	"""
 	model=Question
-	template_name = 'forum/question.html'
+	template_name = 'forum/CREATE_QUESTION.html'
 	#form_class = QuestionForm
 	fields = ['ques_title', 'ques_description']
 
@@ -70,7 +70,7 @@ class ShowOwnAllQuestion(LoginRequiredMixin, generic.ListView):
 	display users own all question
 	"""
 
-	template_name = 'forum/show_all_own_question.html'
+	template_name = 'forum/SELF_QUESTION.html'
 
 	def get_queryset(self):
 		"""
@@ -112,7 +112,7 @@ class ShowAllQuestion(LoginRequiredMixin, generic.ListView):
 	display all users question
 	"""
 
-	template_name = 'forum/show_all_question.html'
+	template_name = 'forum/ALL_QUESTION.html'
 	model = Question
 
 	def get_queryset(self):
@@ -142,7 +142,7 @@ class EditQuestionView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 	model=Question
 	#form_class = EditQuestionForm
 	success_url=reverse_lazy('forum:show_all_own_question')
-	template_name = 'forum/edit_question.html'
+	template_name = 'forum/EDIT_QUESTION.html'
 	success_message = 'Question Edited Successfully'
 	fields=['ques_title','ques_description' ,]
 
@@ -267,7 +267,7 @@ class ShowSelfAnswers(LoginRequiredMixin, generic.ListView):
 	display own answer with question
 	"""
 	model = Answer
-	template_name= 'forum/show_self_answers.html'
+	template_name= 'forum/SELF_ANSWER.html'
  
 	def get_queryset(self):
 		"""

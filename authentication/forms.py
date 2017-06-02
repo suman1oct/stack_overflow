@@ -38,7 +38,7 @@ class SignUpForm(forms.ModelForm):
 		current_year = now.year
 		# modify the widget of User model
 		widgets = {
-            'address': forms.Textarea,'password':forms.PasswordInput(attrs={'placeholder': 'Password'}), 'date_of_birth':SelectDateWidget(years=range(current_year - 70, current_year),
+            'address': forms.Textarea(attrs={'rows':6, 'cols':40}),'password':forms.PasswordInput(attrs={'placeholder': 'Password'}), 'date_of_birth':SelectDateWidget(years=range(current_year - 70, current_year),
             empty_label=('Year', 'Month', 'Day'))
         }	
 
@@ -161,7 +161,7 @@ class EditUserProfileForm(forms.ModelForm):		# for edit the existing campaign of
 		now = datetime.datetime.now()
 		current_year = now.year
 		widgets = {
-            'address': forms.Textarea,'date_of_birth':SelectDateWidget(years=range(current_year - 70, current_year),empty_label=('Year', 'Month', 'Day'))
+            'address': forms.Textarea(attrs={'rows':4, 'cols':40}),'date_of_birth':SelectDateWidget(years=range(current_year - 70, current_year),empty_label=('Year', 'Month', 'Day'))
         }
 
 
