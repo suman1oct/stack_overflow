@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'authentication',
     'forum',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'rest_framework',
+    'rest_framework.authtoken'
+
 ]
 
 MIDDLEWARE = [
@@ -161,3 +164,14 @@ CKEDITOR_UPLOAD_SLUGIFY_FILENAME=False
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 CKEDITOR_BROWSE_SHOW_DIRS=True
 AWS_QUERYSTRING_AUTH = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}

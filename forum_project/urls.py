@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'', include('authentication.urls')),
     url(r'', include('forum.urls')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^', include('authentication.api.urls')),
+    url(r'^api-auth/', include('rest_framework.urls',namespace='rest_framework')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -104,7 +104,7 @@ class LogoutView(LoginRequiredMixin, generic.View):
 		"""
 		logout(request)
 		
-		return redirect('authentication:sign_in')
+		return redirect('forum:homepage')
 
 
 class EditProfileView(SuccessMessageMixin,ValidUserProfileMixin, LoginRequiredMixin, UpdateView):
@@ -193,5 +193,9 @@ class SettingView(LoginRequiredMixin, generic.TemplateView):
 	"""
 
 	template_name = 'authentication/SETTING.html'
+
+
+
+
 
 	

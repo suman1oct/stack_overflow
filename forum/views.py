@@ -20,10 +20,33 @@ from .models import Question, Answer
 class DashboardView(LoginRequiredMixin, generic.TemplateView):
 	
 	"""
-	Homepage View
+	Dashboard View
 	"""
 
 	template_name = 'forum/DASHBOARD.html'
+
+	def get_context_data(self, *args, **kwargs):
+		"""
+		send the answers whose recent answer has received
+		"""
+		# li=[]
+		# answer_list = Answer.objects.filter(question__user=self.request.user).order_by('updated_date')[5]
+		# for an in ans: 
+		# 	if an not in li:
+		# 		li.append(an)
+		# print("****************************")
+		# print(li)	
+		# print(ans.question)
+		# return ans
+		context = super(DashboardView, self).get_context_data(*args, **kwargs)
+		answer_list = Answer.objects.filter(question__user=self.request.user).order_by('updated_date')
+		question_list = list()
+		for ans in answer_list:
+			if ans.question not in question_list:
+				question_list.append(ans.question)
+		context['question_list'] = question_list
+		return context
+
 
 
 class HomepageView(generic.TemplateView):
@@ -83,7 +106,7 @@ class QuestionDetailView(generic.CreateView):
 	"""
 	Question Detail view this will display the detail of question their ans and form for your answer
 	"""
-	template_name = 'forum/ques_detail.html'
+	template_name = 'forum/QUESTION_DETAIL.html'
 	model = Answer
 	fields = ['ans_description',]
 

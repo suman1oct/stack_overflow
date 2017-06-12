@@ -5,10 +5,17 @@ import os
 # django imports
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 #from django.contrib.auth.models import UserManager
 
 # local imports
 from .manager import UserManager
+
+# third party imports
+
+from rest_framework.authtoken.models import Token
 
 def get_ProfileImage_path(instance, filename):
     ext = filename.split('.')[-1]
@@ -51,5 +58,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 	def get_short_name(self):
 		#Returns the short name for the user
 		return self.first_name
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
   

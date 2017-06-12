@@ -1,3 +1,7 @@
+{% load staticfiles %}
+{% load static %}
+{{ form.media }}
+
 <!DOCTYPE html>
 <html>
 <title>W3.CSS</title>
@@ -9,39 +13,42 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <body> 
     
-     <!-- Sidebar -->
-      <div class="w3-sidebar w3-light-grey w3-bar-block" style="z-index: 1;margin-top: 86px;">
-        <!-- <h3 class="w3-bar-item w3-lime ">Menu</h3> -->
+      <!-- Sidebar -->
+     <!--  <div class="w3-sidebar w3-light-grey w3-bar-block" style="z-index: 1;margin-top: 86px;">
+  
         <a href="{% url 'authentication:show_profile' %}" class="w3-bar-item w3-button w3-lime " style="border-bottom: 1px solid #000000;">Profile</a>
         <a href="{% url 'forum:question' %}" class="w3-bar-item w3-button w3-lime" style="border-bottom: 1px solid #000000;">Create Question</a>
         <a href="{% url 'forum:show_all_own_question' %}" class="w3-bar-item w3-button w3-lime" style="border-bottom: 1px solid #000000;">Self Questions</a>
         <a href="{% url 'forum:show_all_question' %}" class="w3-bar-item w3-button w3-lime" style="border-bottom: 1px solid #000;">All Questions</a>
         <a href="{% url 'forum:show_self_answers' %}" class="w3-bar-item w3-button w3-lime" style="border-bottom: 1px solid #000000;">Self Answers</a>
         <a href="{% url 'authentication:setting' %}" class="w3-bar-item w3-button w3-lime" style="border-bottom: 1px solid #000000;">Settings</a>
-        <a href="{% url 'authentication:logout' %}" class="w3-bar-item w3-button w3-lime" style="border-bottom: 1px solid #000000;">Logout</a>
 
 
-
-      </div>
-    
+      </div> -->
+          
       <div class="w3-bar w3-green">
           <div class="w3-bar-item" style="width:100%">
             <h1 style="text-align: center;" >DASHBOARD</h1>
           </div>
       </div>
 
-      <br><br>
-      <div style="margin-top: 10px; margin-left: 400px; margin-bottom:0PX;margin-right: 200px; color:#333333; background-color: #efefef;z-index: 0">
-            <center><h2>Recent Answered</h2></center>
-      </div>
-      {% for question in question_list %}
+      <div style="margin-top: 0px; margin-left: 1px; margin-bottom:0PX;margin-right: 0px; color:#333333; background-color: ;z-index: 0">
+              <h1 style="margin-top: 0px;"">All Questions</h1>
 
-      <div style="margin-top: 10px; margin-left: 400px; margin-bottom:0PX;margin-right: 200px; color:#333333; background-color: #efefef;z-index: 0">
-      
-        {{question.ques_title}}
+            {% for ques in question_list %}<br><br>
+                <div style="background-color: #efefef">
+                  <a href="{% url 'forum:question_detail' ques.pk %}">{{ques.ques_title}}</a><HR>
+                     <script src="https://use.fontawesome.com/4e8af885fd.js"></script>
+                     <a href="{% url 'forum:edit_question' ques.pk %}">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </a><hr>
+                </div>
 
-      
+            {%  endfor %}
       </div>
-      {% endfor %}
+
     </body>
 </html>
+
+
+
