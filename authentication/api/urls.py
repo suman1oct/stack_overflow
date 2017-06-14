@@ -8,7 +8,7 @@ from rest_framework.authtoken import views
 
 # inner app imports
 from authentication.api import urls
-from authentication.api.views import UserList, UserDetail, AllQuestionsList ,SelfQuestionsList, QuestionDetail, AnswerList, QuestionCreate, QuestionUpdate, CreateAnswer,UpdateAnswer
+from authentication.api.views import UserList, UserDetail, AllQuestionsList ,SelfQuestionsList, LoginView, QuestionDetail, AnswerList, QuestionCreate, QuestionUpdate, CreateAnswer,UpdateAnswer, SignUpView, LogoutView, ChangePasswordView
 
 # third party imports
 
@@ -25,6 +25,12 @@ urlpatterns = [
 	url(r'^answers/(?P<pk>[0-9]+)/$', AnswerList.as_view()),
 	url(r'^update-answer/(?P<pk>[0-9]+)/$', UpdateAnswer.as_view()),
 	url(r'^create-answer/(?P<pk>[0-9]+)/$', CreateAnswer.as_view()),
-	url(r'^api-token-auth/', views.obtain_auth_token)
+	url(r'^user-sign-up/$', SignUpView.as_view()),
+	url(r'^api-token-auth/', views.obtain_auth_token),
+	url(r'^api/logout/', LogoutView.as_view()),
+	url(r'^login/$', LoginView.as_view()),
+	url(r'^change/user/password', ChangePasswordView.as_view()),
+
+
 
 ]
